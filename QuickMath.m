@@ -1,13 +1,31 @@
 escolha = -1;
 while escolha != 0
-  escolha = input('Escolher arma/Digitar manualmente/Explicação Digitar manualmente(1/2/3/0): ');
+  printf(["1 - Escolher arma e digitar dano extra\n"...
+         "2 - Digitar teste de ataque e dano manualmente\n"...
+         "3 - Explicação desse menu\n"...
+         "0 - Sair\n"]);
+  escolha = input('QuickMath - Escolha (1/2/3/0): ');
   if escolha == 1
     [melee, ranged] = weapons_catalog();
-    return
+    tipoarma = 's';
+    while strcmp("r", tipoarma) == 0 && strcmp("m", tipoarma) == 0
+      tipoarma = input('Melee ou ranged? (m/r): ', "s");
+    if strcmp("m", tipoarma)
+    for i = 1:length(melee)
+      melee(i).show(i)
+    endfor
+    elseif strcmp("r", tipoarma)
+    for i = 1:length(ranged)
+      ranged(i).show(i)
+    endfor
+    else
+      printf('Digite m para melee ou r para ranged.\n');
+    endif
+    endwhile
   elseif escolha == 2
     txt1 = input('Teste de ataque: ', "s");
     atktst = regexp(txt1, '[+-]?\d+', 'match');  %pega números com sinal
-    atktst = str2double(atktst);                  %converte para vetor numérico
+    atktst = str2double(atktst);                 %converte para vetor numérico
 
     txt2 = input('Dano antes do crítico: ', "s");
     dmgbf = regexp(txt2, '\d+', 'match');
@@ -37,33 +55,34 @@ while escolha != 0
     media_ext += qtd*(1+dano)/2;
     endfor
     bonus = dmgext(end);
-    armaexpdmg = media_normal*pnormal+media_critico*pcritico+media_ext+bonus
-    return
+    armaexpdmg = media_normal*pnormal+media_critico*pcritico+media_ext+bonus;
+    printf('Dano esperado da arma: %d\n', armaexpdmg);
   elseif escolha == 3
     printf(['Resumo:\n' ...
-            'O cálculo do dano médio ou dano esperado é dividido em três etapas.Teste de ataque, ' ...
-            'Dano da arma ou Dano antes do crítico, e por fim Dano extra. Caso seu personagem ' ...
+            'O cálculo do dano médio ou dano esperado é dividido em três etapas.\n 1-Teste de ataque; 2-' ...
+            'Dano da arma ou Dano antes do crítico; e por fim 3-Dano extra.\nCaso seu personagem ' ...
             'possa atacar mais de uma vez, simplesmente multiplique o número de vezes que pode ' ...
             'atacar pelo resultado para saber o dano esperado por turno.\n'...
             'Exemplo:\nataco duas vezes e o dano esperado deu 15,432 -> dano médio por turno = 15,432*2\n\n'])
-    printf(['Etapa 1:\n' ...
+    printf(['Etapa 1 (Ignorada caso tenha escolhido a arma):\n' ...
             'Digite o teste de ataque que você rola. (Errar o inimigo é desconsiderado ' ...
             'nesse cálculo). 0d20 significa rolar 2d20 e escolher o pior. -1d20 significa ' ...
-            'rolar 3d20 e escolher o pior.\n']);
-    printf('Exemplos:\n\t"3d20+3"\n\t"2d20"\n\t"2d20"\n\t"-1d20+5"\n\n')
+            'rolar 3d20 e escolher o pior.\n Digite apenas os dados.\n']);
+    printf('Exemplos:\n\t"3d20"\n\t"2d20"\n\t"-1d20"\n\n')
 
-    printf(['Etapa 2:\n' ...
+    printf(['Etapa 2 (Ignorada caso tenha escolhido a arma):\n' ...
             'Digite o dano calculado antes do crítico, a margem de ameaça e o crítico. ' ...
             'Normalmente é o dano da arma, como 1d8 do bastão. Mas se tiver maldições como ' ...
             'lancinante, o dano também ganha o multiplicador do crítico (1d8*crítico, se critar)\n']);
-    printf('Exemplos:\n\t"1d12,20/x3"\n\t"1d12+1d8,20/x3"\n\n"')
+    printf('Exemplos:\n\t"1d12,20x3"\n\t"1d12+1d8,19x3"\n\n"')
 
     printf(['Etapa 3:\n' ...
-            'Digite o dano extra (eventuais maldições+bônus de perícia)\n' ...
+            'Digite o dano extra (eventuais maldições+bônus de perícia da arma)\n' ...
             'Importante: digite o bônus por último.\n\n']);
   elseif escolha == 0
     printf('voltando...\n')
   else
     printf('escolhe direito seu buxa!\n')
   endif
+  printf('\n');
 endwhile
