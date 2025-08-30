@@ -3,8 +3,9 @@ clear classes
 clc;
 printf("=== Menu ===\n")
 printf('1 - Calcular dano médio\n')
-printf('2 - Gerenciar armas existentes\n')
-printf('3 - Gerenciar personagens existentes\n')
+printf('2 - Calcular dano rápido\n')
+printf('3 - Gerenciar armas existentes\n')
+printf('4 - Gerenciar personagens existentes\n')
 printf('0 - Sair\n')
 
 optmenu = 1;
@@ -13,10 +14,12 @@ while optmenu != 0
   switch optmenu
     case 1 %dano
       Menu1
-    case 2 %armas
-      Menu2
-    case 3 %personagens
+    case 2
+      QuickMath
+    case 3 %armas
       Menu3
+    case 4 %personagens
+      Menu4
     case 0 %sair
       printf("Saindo."); pause(0.1); printf("."); pause(0.1); printf("."); pause(0.1);
       printf(".\n");
